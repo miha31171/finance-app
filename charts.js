@@ -2,14 +2,17 @@
 var Charts = (function () {
   function f(n) { return Math.abs(n) >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : Math.abs(n) >= 1e3 ? (n / 1e3).toFixed(0) + 'k' : n.toFixed(Math.abs(n) < 10 ? 2 : 0); }
   var W = 760, H = 260, L = 50, B = 24, T = 10, R = 10;
+  /* на узких экранах рисуем в меньшей системе координат — подписи остаются читаемыми */
+  function dims() { var m = typeof window !== 'undefined' && window.innerWidth < 720; W = m ? 380 : 760; H = m ? 240 : 260; L = m ? 40 : 50; }
   function frame(min, max, labels) {
     var s = '', i; for (i = 0; i <= 4; i++) { var v = min + (max - min) * i / 4, y = H - B - (H - B - T) * i / 4; s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y + '" y2="' + y + '" stroke="#eee"/><text x="' + (L - 4) + '" y="' + (y + 4) + '" text-anchor="end">' + f(v) + '</text>'; }
-    var step = Math.max(1, Math.ceil(labels.length / 10));
+    var step = Math.max(1, Math.ceil(labels.length / (W < 500 ? 5 : 10)));
     labels.forEach(function (l, i) { if (i % step) return; var x = L + (W - L - R) * (labels.length > 1 ? i / (labels.length - 1) : .5); s += '<text x="' + x + '" y="' + (H - 6) + '" text-anchor="middle">' + l + '</text>'; });
     return s;
   }
   /* series: [{data:[num|null], color, width, dash}], bands: [{lo:[],hi:[],color}] */
   function line(labels, series, bands, legend) {
+    dims();
     var all = []; series.concat((bands || []).map(function (b) { return { data: b.lo.concat(b.hi) }; })).forEach(function (s) { s.data.forEach(function (v) { if (v != null && isFinite(v)) all.push(v); }); });
     if (!all.length) return '<p class="muted">Нет данных для графика</p>';
     var min = Math.min.apply(null, all), max = Math.max.apply(null, all); if (min === max) { min -= 1; max += 1; } var pad = (max - min) * .05; min -= pad; max += pad;
@@ -21,9 +24,10 @@ var Charts = (function () {
     return s;
   }
   function bars(labels, groups) { /* groups: [{name,color,data}] */
+    dims();
     var all = [0]; groups.forEach(function (g) { all = all.concat(g.data); }); var max = Math.max.apply(null, all) || 1, n = labels.length, gw = (W - L - R) / Math.max(n, 1), bw = gw * .8 / groups.length;
     var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%">' + frame(0, max, []);
-    labels.forEach(function (l, i) { groups.forEach(function (g, k) { var v = g.data[i] || 0, h = (H - B - T) * v / max, x = L + gw * i + gw * .1 + bw * k; s += '<rect x="' + x + '" y="' + (H - B - h) + '" width="' + (bw - 1) + '" height="' + h + '" fill="' + g.color + '"><title>' + g.name + ': ' + v.toFixed(0) + '</title></rect>'; }); s += '<text x="' + (L + gw * i + gw / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + l + '</text>'; });
+    labels.forEach(function (l, i) { groups.forEach(function (g, k) { var v = g.data[i] || 0, h = (H - B - T) * v / max, x = L + gw * i + gw * .1 + bw * k; s += '<rect x="' + x + '" y="' + (H - B - h) + '" width="' + (bw - 1) + '" height="' + h + '" fill="' + g.color + '"><title>' + g.name + ': ' + v.toFixed(0) + '</title></rect>'; }); if (W >= 500 || n <= 6 || i % 2 === (n - 1) % 2) s += '<text x="' + (L + gw * i + gw / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + l + '</text>'; });
     return s + '</svg><div class="muted">' + groups.map(function (g) { return '<span style="color:' + g.color + '">■</span> ' + g.name; }).join(' &nbsp; ') + '</div>';
   }
   var PAL = ['#3b5bdb', '#f08c00', '#2f9e44', '#c92a2a', '#7048e8', '#1098ad', '#e64980', '#868e96', '#5c940d', '#d9480f'];

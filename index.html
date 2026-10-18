@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://iss.moex.com https://www.cbr-xml-daily.ru https://api.coingecko.com">
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1d2b4f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Финансы"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icon-180.png">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src 'self' data:; manifest-src 'self'; connect-src https://iss.moex.com https://www.cbr-xml-daily.ru https://api.coingecko.com">
 <title>Мои финансы — локально</title><link rel="stylesheet" href="app.css"></head>
 <body>
-<header><h1>💼 Мои финансы</h1><nav id="tabs">
-<button data-tab="overview" class="on">Обзор</button><button data-tab="tx">Операции</button><button data-tab="accounts">Счета</button><button data-tab="import">Импорт</button>
-<button data-tab="market">Рынок</button><button data-tab="portfolio">Портфель</button><button data-tab="forecast">Прогноз</button><button data-tab="ideas">Идеи и рекомендации</button><button data-tab="settings">Настройки</button></nav></header>
+<header><div class="hrow"><h1>💼 Мои финансы</h1><div id="hdrTotal" title="Всего в ₽ по ручным курсам"></div></div><nav id="tabs">
+<button data-tab="overview" class="on"><span class="ic">🏠</span><span class="lb">Обзор</span><span class="lbs">Обзор</span></button><button data-tab="tx"None><span class="ic">📋</span><span class="lb">Операции</span><span class="lbs">Операции</span></button><button data-tab="accounts"None><span class="ic">💳</span><span class="lb">Счета</span><span class="lbs">Счета</span></button><button data-tab="import"None><span class="ic">📥</span><span class="lb">Импорт</span><span class="lbs">Импорт</span></button>
+<button data-tab="market"None><span class="ic">📈</span><span class="lb">Рынок</span><span class="lbs">Рынок</span></button><button data-tab="portfolio"None><span class="ic">💼</span><span class="lb">Портфель</span><span class="lbs">Портфель</span></button><button data-tab="forecast"None><span class="ic">🔮</span><span class="lb">Прогноз</span><span class="lbs">Прогноз</span></button><button data-tab="ideas"None><span class="ic">💡</span><span class="lb">Идеи и рекомендации</span><span class="lbs">Идеи</span></button><button data-tab="settings"None><span class="ic">⚙️</span><span class="lb">Настройки</span><span class="lbs">Ещё</span></button></nav></header>
 <div id="disclaimer" class="disc hidden">⚠️ Раздел «Инвестиции» — образовательная аналитика на открытых данных, <b>не индивидуальная инвестиционная рекомендация</b>. Прогнозы — статистические модели, а не гарантии; прошлая доходность не гарантирует будущую. Решения вы принимаете самостоятельно.</div>
 <main>
 <section id="overview" class="tab on"></section>

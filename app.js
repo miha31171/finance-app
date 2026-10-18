@@ -33,6 +33,7 @@ function renderOverview() {
   var byCur = {}, rows = S.accounts.map(function (a) { var b = balance(a); byCur[a.currency] = (byCur[a.currency] || 0) + b;
     return '<tr><td>' + esc(a.name) + (a.demo ? ' <span class="demo">демо</span>' : '') + '</td><td>' + esc(a.type) + '</td><td class="num">' + fmt(b, a.currency) + '</td></tr>'; }).join('');
   var totRub = 0, miss = false; Object.keys(byCur).forEach(function (c) { var v = toRUB(byCur[c], c); if (v == null) miss = true; else totRub += v; });
+  var ht = $('#hdrTotal'); if (ht) ht.textContent = S.accounts.length ? fmt(totRub, 'RUB') : '';
   var now = new Date(), cm = ym(now), pm = ym(new Date(now.getFullYear(), now.getMonth() - 1, 1)), mon = Core.monthly(S.tx, 'RUB');
   var cats = {}; S.tx.forEach(function (t) { if (t.amount < 0 && t.date.slice(0, 7) === cm && t.currency === 'RUB') cats[t.category] = (cats[t.category] || 0) - t.amount; });
   var top = Object.keys(cats).map(function (k) { return { name: k, value: cats[k] }; }).sort(function (a, b) { return b.value - a.value; });
@@ -114,3 +115,16 @@ var RENDER = { overview: renderOverview, tx: renderTx, accounts: renderAccounts,
 function renderAll() { Object.keys(RENDER).forEach(function (k) { try { RENDER[k](); } catch (e) { console.error(k, e); } }); }
 document.querySelectorAll('#tabs button').forEach(function (b) { b.onclick = function () { document.querySelectorAll('#tabs button,.tab').forEach(function (x) { x.classList.remove('on'); }); b.classList.add('on'); $('#' + b.dataset.tab).classList.add('on'); $('#disclaimer').classList.toggle('hidden', ['market', 'portfolio', 'forecast', 'ideas'].indexOf(b.dataset.tab) < 0); if (RENDER[b.dataset.tab] && b.dataset.tab !== 'tx') RENDER[b.dataset.tab](); }; });
 renderAll();
+
+/* ---- мобильные улучшения: таблицы -> карточки (data-label), сворачиваемые секции, перерисовка графиков при повороте ---- */
+function enhance(root) {
+  (root || document).querySelectorAll('table').forEach(function (t) { var hr = t.rows[0]; if (!hr || !hr.querySelector('th')) return; var labels = Array.from(hr.cells).map(function (c) { return c.textContent.trim(); });
+    t.classList.add('cards'); Array.from(t.rows).slice(1).forEach(function (r) { Array.from(r.cells).forEach(function (c, i) { if (!c.hasAttribute('data-label')) c.setAttribute('data-label', labels[i] || ''); if (c.classList.contains('why') || /Почему|Описание|Действие/.test(labels[i] || '')) c.classList.add('wide'); }); }); });
+}
+var COLL = JSON.parse(localStorage.getItem('finance-ui-collapsed') || '{}');
+document.addEventListener('click', function (e) { var h = e.target.closest && e.target.closest('.card>h3'); if (!h) return; var c = h.parentNode, k = h.textContent.replace(/[\d\s().,:%₽-]+$/, '').slice(0, 40); c.classList.toggle('collapsed'); COLL[k] = c.classList.contains('collapsed'); localStorage.setItem('finance-ui-collapsed', JSON.stringify(COLL)); });
+function applyCollapsed() { document.querySelectorAll('.card>h3').forEach(function (h) { var k = h.textContent.replace(/[\d\s().,:%₽-]+$/, '').slice(0, 40); if (COLL[k] || (COLL[k] === undefined && innerWidth < 720 && /^(Добавить|Новый счёт|Правила)/.test(k))) h.parentNode.classList.add('collapsed'); }); }
+new MutationObserver(function () { enhance(); applyCollapsed(); }).observe(document.querySelector('main'), { childList: true, subtree: true });
+enhance(); applyCollapsed();
+var _wasMobile = innerWidth < 720; addEventListener('resize', function () { var m = innerWidth < 720; if (m !== _wasMobile) { _wasMobile = m; renderAll(); } });
+document.querySelectorAll('#tabs button').forEach(function (b) { b.addEventListener('click', function () { window.scrollTo(0, 0); }); });
