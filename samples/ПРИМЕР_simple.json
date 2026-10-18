@@ -1,0 +1,145 @@
+{
+ "_note": "ПРИМЕР ДАННЫХ",
+ "transactions": [
+  {
+   "date": "2026-05-01",
+   "amount": -323.11,
+   "currency": "RUB",
+   "description": "Пятерочка",
+   "category": ""
+  },
+  {
+   "date": "2026-05-03",
+   "amount": -2783.48,
+   "currency": "RUB",
+   "description": "Перекресток",
+   "category": ""
+  },
+  {
+   "date": "2026-05-03",
+   "amount": -1265.97,
+   "currency": "RUB",
+   "description": "Аптека Ригла",
+   "category": ""
+  },
+  {
+   "date": "2026-05-04",
+   "amount": -5078.44,
+   "currency": "RUB",
+   "description": "OZON заказ",
+   "category": ""
+  },
+  {
+   "date": "2026-05-05",
+   "amount": 120000.0,
+   "currency": "RUB",
+   "description": "Зарплата ООО Пример",
+   "category": "Зарплата"
+  },
+  {
+   "date": "2026-05-06",
+   "amount": -299.0,
+   "currency": "RUB",
+   "description": "Кинопоиск подписка",
+   "category": ""
+  },
+  {
+   "date": "2026-05-07",
+   "amount": -2130.13,
+   "currency": "RUB",
+   "description": "Перекресток",
+   "category": ""
+  },
+  {
+   "date": "2026-05-07",
+   "amount": -827.19,
+   "currency": "RUB",
+   "description": "Пятерочка",
+   "category": ""
+  },
+  {
+   "date": "2026-05-09",
+   "amount": -438.19,
+   "currency": "RUB",
+   "description": "Аптека Ригла",
+   "category": ""
+  },
+  {
+   "date": "2026-05-10",
+   "amount": -678.9,
+   "currency": "RUB",
+   "description": "Кафе Шоколадница",
+   "category": ""
+  },
+  {
+   "date": "2026-05-13",
+   "amount": -4974.38,
+   "currency": "RUB",
+   "description": "OZON заказ",
+   "category": ""
+  },
+  {
+   "date": "2026-05-13",
+   "amount": -299.0,
+   "currency": "RUB",
+   "description": "Кинопоиск подписка",
+   "category": ""
+  },
+  {
+   "date": "2026-05-14",
+   "amount": 1648.08,
+   "currency": "RUB",
+   "description": "Перевод от Ивана СБП",
+   "category": ""
+  },
+  {
+   "date": "2026-05-15",
+   "amount": 1445.45,
+   "currency": "RUB",
+   "description": "Перевод от Ивана СБП",
+   "category": ""
+  },
+  {
+   "date": "2026-05-22",
+   "amount": 1058.19,
+   "currency": "RUB",
+   "description": "Перевод от Ивана СБП",
+   "category": ""
+  },
+  {
+   "date": "2026-05-23",
+   "amount": -600.0,
+   "currency": "RUB",
+   "description": "МТС связь",
+   "category": ""
+  },
+  {
+   "date": "2026-05-24",
+   "amount": -799.26,
+   "currency": "RUB",
+   "description": "Яндекс Go такси",
+   "category": ""
+  },
+  {
+   "date": "2026-05-24",
+   "amount": -600.0,
+   "currency": "RUB",
+   "description": "МТС связь",
+   "category": ""
+  },
+  {
+   "date": "2026-05-25",
+   "amount": -1619.76,
+   "currency": "RUB",
+   "description": "Перекресток",
+   "category": ""
+  },
+  {
+   "date": "2026-05-26",
+   "amount": -1264.93,
+   "currency": "RUB",
+   "description": "Кафе Шоколадница",
+   "category": ""
+  }
+ ]
+}

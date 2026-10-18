@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://iss.moex.com https://www.cbr-xml-daily.ru https://api.coingecko.com">
+<title>Мои финансы — локально</title><link rel="stylesheet" href="app.css"></head>
+<body>
+<header><h1>💼 Мои финансы</h1><nav id="tabs">
+<button data-tab="overview" class="on">Обзор</button><button data-tab="tx">Операции</button><button data-tab="accounts">Счета</button><button data-tab="import">Импорт</button>
+<button data-tab="market">Рынок</button><button data-tab="portfolio">Портфель</button><button data-tab="forecast">Прогноз</button><button data-tab="ideas">Идеи и рекомендации</button><button data-tab="settings">Настройки</button></nav></header>
+<div id="disclaimer" class="disc hidden">⚠️ Раздел «Инвестиции» — образовательная аналитика на открытых данных, <b>не индивидуальная инвестиционная рекомендация</b>. Прогнозы — статистические модели, а не гарантии; прошлая доходность не гарантирует будущую. Решения вы принимаете самостоятельно.</div>
+<main>
+<section id="overview" class="tab on"></section>
+<section id="tx" class="tab"></section>
+<section id="accounts" class="tab"></section>
+<section id="import" class="tab"></section>
+<section id="market" class="tab"></section>
+<section id="portfolio" class="tab"></section>
+<section id="forecast" class="tab"></section>
+<section id="ideas" class="tab"></section>
+<section id="settings" class="tab"></section>
+</main>
+<div id="toast"></div>
+<script src="core.js"></script><script src="demo.js"></script><script src="charts.js"></script><script src="app.js"></script><script src="invest.js"></script>
+</body></html>
